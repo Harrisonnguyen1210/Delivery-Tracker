@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Delivery Tracker-DeliveryTracker.iml" filepath="$PROJECT_DIR$/Delivery Tracker-DeliveryTracker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/Delivery Tracker-app.iml" filepath="$PROJECT_DIR$/app/Delivery Tracker-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/DeliveryTracker.iml" filepath="$PROJECT_DIR$/DeliveryTracker.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
