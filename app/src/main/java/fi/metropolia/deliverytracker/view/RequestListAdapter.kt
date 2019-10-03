@@ -12,6 +12,12 @@ import kotlinx.android.synthetic.main.request_item.view.*
 class RequestListAdapter(private val requestList: ArrayList<Request>):
     RecyclerView.Adapter<RequestListAdapter.RequestViewHolder>(){
 
+    fun updateRequestList(newRequestList: List<Request>) {
+        requestList.clear()
+        requestList.addAll(newRequestList)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RequestViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.request_item, parent, false)
