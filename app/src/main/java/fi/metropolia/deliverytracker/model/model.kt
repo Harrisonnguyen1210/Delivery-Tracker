@@ -1,8 +1,12 @@
 package fi.metropolia.deliverytracker.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity
 data class Request(
+    @PrimaryKey
     @SerializedName("id")
     val id: Int,
     @SerializedName("status")

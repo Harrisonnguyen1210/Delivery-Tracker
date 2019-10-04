@@ -12,11 +12,10 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         app:srcCompat="@mipmap/ic_launcher"
-        android:scaleType="fitXY"
         android:contentDescription="Request Image"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
         android:orientation="vertical">

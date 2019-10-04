@@ -31,6 +31,7 @@ class RequestListAdapter(private val requestList: ArrayList<Request>):
     override fun onBindViewHolder(holder: RequestViewHolder, position: Int) {
         holder.view.setOnClickListener {
             val action = RequestsFragmentDirections.actionRequestsFragmentToRequestDetail()
+            action.requestId = position
             Navigation.findNavController(it).navigate(action)
         }
         holder.view.requestTitle.text = requestList[position].destination

@@ -25,7 +25,12 @@
     </fragment>
     <fragment
         android:id="@+id/requestDetail"
-        android:name="fi.metropolia.deliverytracker.view.RequestDetail"
+        android:name="fi.metropolia.deliverytracker.view.DetailFragment"
         android:label="fragment_request_detail"
-        tools:layout="@layout/fragment_request_detail" />
+        tools:layout="@layout/fragment_request_detail" >
+        <argument
+            android:name="requestId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>
