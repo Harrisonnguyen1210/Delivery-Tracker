@@ -20,5 +20,7 @@ data class Request(
     @SerializedName("customer")
     val customer: String,
     @SerializedName("info")
-    val info: String
+    val info: String,
+    @SerializedName("image_url")
+    val imageUrl: String
 )

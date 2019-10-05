@@ -32,5 +32,17 @@
             android:name="requestId"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_requestDetail_to_acceptOrder"
+            app:destination="@id/acceptOrder" />
+    </fragment>
+    <fragment
+        android:id="@+id/acceptOrder"
+        android:name="fi.metropolia.deliverytracker.view.AcceptOrder"
+        android:label="fragment_accept_order"
+        tools:layout="@layout/fragment_accept_order" >
+        <action
+            android:id="@+id/action_acceptOrder_to_requestDetail"
+            app:destination="@id/requestDetail" />
     </fragment>
 </navigation>

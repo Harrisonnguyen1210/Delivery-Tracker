@@ -1,41 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="125dp">
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:srcCompat="@mipmap/ic_launcher"
-        android:contentDescription="Request Image"/>
-
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="request"
+            type="fi.metropolia.deliverytracker.model.Request" />
+        <variable
+            name="requestId"
+            type="Integer" />
+        <variable
+            name="listener"
+            type="fi.metropolia.deliverytracker.view.RequestClickListener" />
+    </data>
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:orientation="vertical">
+        android:onClick="@{view->listener.onRequestClick(requestId, view)}"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="125dp">
 
-        <TextView
-            android:id="@+id/requestTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="requestTitle" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:imageUrl="@{request.imageUrl}"
+            android:contentDescription="Request Image"/>
 
-        <TextView
-            android:id="@+id/requestCustomer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="requestCustomer" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/requestDeadline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="requestDeadline" />
+            <TextView
+                android:id="@+id/requestCustomer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{request.customer}" />
+
+            <TextView
+                android:id="@+id/requestDeadline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{request.deadline}" />
+
+            <TextView
+                android:id="@+id/requestStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{request.status}" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</layout>

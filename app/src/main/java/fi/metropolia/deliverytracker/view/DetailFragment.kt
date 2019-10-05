@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import fi.metropolia.deliverytracker.R
 import fi.metropolia.deliverytracker.viewmodel.DetailViewModel
 import kotlinx.android.synthetic.main.fragment_request_detail.*
@@ -34,6 +35,10 @@ class DetailFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
         viewModel.fetch(requestId)
         observeViewModel()
+        acceptButton.setOnClickListener {
+            val action = DetailFragmentDirections.actionRequestDetailToAcceptOrder()
+            Navigation.findNavController(it).navigate(action)
+        }
     }
 
     private fun observeViewModel() {
