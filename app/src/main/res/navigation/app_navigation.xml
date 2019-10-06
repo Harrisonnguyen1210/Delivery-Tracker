@@ -44,5 +44,9 @@
         <action
             android:id="@+id/action_acceptOrder_to_requestDetail"
             app:destination="@id/requestDetail" />
+        <argument
+            android:name="requestId"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

@@ -37,6 +37,7 @@ class DetailFragment : Fragment() {
         observeViewModel()
         acceptButton.setOnClickListener {
             val action = DetailFragmentDirections.actionRequestDetailToAcceptOrder()
+            action.requestId = requestId
             Navigation.findNavController(it).navigate(action)
         }
     }
@@ -44,6 +45,7 @@ class DetailFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.requestDetail.observe(this, Observer {
             it?.let {
+                if (it.transporterName == "delivery" && it.status == "Accepted") acceptButton.text = "Start delivery"
                 customerText.text = it.customer
                 startingDateText.text = it.startingDate
                 deadlineText.text = it.deadline

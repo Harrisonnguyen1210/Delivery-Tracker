@@ -3,6 +3,7 @@ package fi.metropolia.deliverytracker.model
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface RequestDao {
@@ -17,4 +18,7 @@ interface RequestDao {
 
     @Query("DELETE FROM Request")
     suspend fun deleteAllRequests()
+
+    @Query("UPDATE Request SET transporterName = :transporterName, status = :status WHERE id = :requestId")
+    suspend fun acceptRequest(status: String, transporterName: String, requestId: Int)
 }
