@@ -6,11 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import fi.metropolia.deliverytracker.R
+import fi.metropolia.deliverytracker.model.User
+import fi.metropolia.deliverytracker.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {
+
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,10 +30,34 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+/*
+        //Uncomment this when first installing the app
+        viewModel.registerUser(User("delivery", "tracker"))
+*/
         logInButton.setOnClickListener {
-            val action =
-                LoginFragmentDirections.actionLoginFragmentToRequestsFragment()
-            Navigation.findNavController(it).navigate(action)
+            if (userNameText.text.isNotEmpty() && passwordText.text.isNotEmpty()) {
+                val user = User(userNameText.text.toString(), passwordText.text.toString())
+                viewModel.loginUser(user)
+            }
         }
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        viewModel.loginState.observe(this, Observer {
+            it?.let {
+                if(it) {
+                    findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRequestsFragment())
+                }
+            }
+        })
+
+        viewModel.errorState.observe(this, Observer {
+            it?.let {
+                if(it) errorText.visibility = View.VISIBLE
+                else errorText.visibility = View.GONE
+            }
+        })
     }
 }

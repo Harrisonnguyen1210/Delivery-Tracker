@@ -1,7 +1,6 @@
 package fi.metropolia.deliverytracker.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.google.gson.annotations.SerializedName
 
 @Entity
@@ -22,5 +21,21 @@ data class Request(
     @SerializedName("info")
     val info: String,
     @SerializedName("image_url")
-    val imageUrl: String
+    val imageUrl: String,
+    val transporterName: String?
+)
+
+@Entity
+data class User(
+    @PrimaryKey
+    val userName: String,
+    val password: String
+)
+
+class UserWithRequests(
+    @Embedded
+    val user: User? = null,
+
+    @Relation(parentColumn = "userName", entityColumn = "transporterName")
+    val requestList: List<Request>
 )

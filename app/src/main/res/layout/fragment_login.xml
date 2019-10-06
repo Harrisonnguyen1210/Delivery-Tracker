@@ -79,4 +79,15 @@
         app:layout_constraintStart_toStartOf="@+id/passwordText"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/errorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wrong username or password"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/logInButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,14 +47,14 @@ class RequestsFragment : Fragment() {
             }
         })
 
-        viewModel.requestsLoadError.observe(this, Observer { isError ->
-            isError?.let {
+        viewModel.requestsLoadError.observe(this, Observer {
+            it?.let {
                 listError.visibility = if(it) View.VISIBLE else View.GONE
             }
         })
 
-        viewModel.loading.observe(this, Observer { isLoading ->
-            isLoading?.let {
+        viewModel.loading.observe(this, Observer {
+            it?.let {
                 progressBar.visibility = if(it) View.VISIBLE else View.GONE
                 if(it) {
                     listError.visibility = View.GONE

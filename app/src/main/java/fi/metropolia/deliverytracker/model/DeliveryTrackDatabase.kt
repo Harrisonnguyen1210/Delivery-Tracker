@@ -5,9 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Request::class], version = 1)
+@Database(entities = [Request::class, User::class], version = 1)
 abstract class DeliveryTrackDatabase: RoomDatabase() {
     abstract fun requestDao(): RequestDao
+    abstract fun userDao(): UserDao
 
     companion object {
         @Volatile private var instance: DeliveryTrackDatabase? = null
