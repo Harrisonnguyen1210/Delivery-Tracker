@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/acceptOrder"
-        android:name="fi.metropolia.deliverytracker.view.AcceptOrder"
+        android:name="fi.metropolia.deliverytracker.view.AcceptOrderFragment"
         android:label="fragment_accept_order"
         tools:layout="@layout/fragment_accept_order" >
         <action

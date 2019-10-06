@@ -7,10 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import fi.metropolia.deliverytracker.R
 import kotlinx.android.synthetic.main.fragment_accept_order.*
 
-class AcceptOrder : Fragment() {
+class AcceptOrderFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,8 +24,7 @@ class AcceptOrder : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         cancelButton.setOnClickListener {
-            val action = AcceptOrderDirections.actionAcceptOrderToRequestDetail()
-            Navigation.findNavController(it).navigate(action)
+            Navigation.findNavController(it).navigateUp()
         }
     }
 
