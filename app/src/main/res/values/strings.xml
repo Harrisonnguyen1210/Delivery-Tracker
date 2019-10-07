@@ -14,4 +14,6 @@
     <string name="login_failed">"Login failed"</string>
     <string name="login_title">Login</string>
     <string name="invalid_login">Wrong username or password</string>
+    <string name="deliver_by">Deliver by</string>
+    <string name="status">Status: </string>
 </resources>

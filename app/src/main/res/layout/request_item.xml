@@ -1,54 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="request"
             type="fi.metropolia.deliverytracker.model.Request" />
+
         <variable
             name="requestId"
             type="Integer" />
+
         <variable
             name="listener"
             type="fi.metropolia.deliverytracker.view.RequestClickListener" />
     </data>
-    <LinearLayout
-        android:onClick="@{view->listener.onRequestClick(requestId, view)}"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="125dp">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:imageUrl="@{request.imageUrl}"
-            android:contentDescription="Request Image"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="@dimen/card_view_radius"
+        app:cardUseCompatPadding="true">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="vertical">
+            android:elevation="@dimen/card_view_radius"
+            android:onClick="@{view->listener.onRequestClick(requestId, view)}"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/requestCustomer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{request.customer}" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contentDescription="Request Image"
+                android:imageUrl="@{request.imageUrl}"
+                android:scaleType="centerCrop" />
 
-            <TextView
-                android:id="@+id/requestDeadline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{request.deadline}" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:padding="@dimen/card_view_info_padding">
 
-            <TextView
-                android:id="@+id/requestStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{request.status}" />
+                <TextView
+                    android:id="@+id/requestCustomer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/card_view_customer_vertical_padding"
+                    android:text="@{request.customer}"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/requestAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{request.destination}"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/requestDeadline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/deliver_by + ` ` + request.deadline}"
+                    android:textColor="@color/colorPrimary" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/card_view_status_margin_top">
+
+                    <TextView
+                        android:id="@+id/requestStatusLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/status + ` `}"
+                        android:textColor="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/requestStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{request.status}"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

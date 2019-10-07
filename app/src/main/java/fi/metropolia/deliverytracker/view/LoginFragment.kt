@@ -31,10 +31,10 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
-/*
-        //Uncomment this when first installing the app
-        viewModel.registerUser(User("delivery", "tracker"))
-*/
+
+//        //Uncomment this when first installing the app
+//        viewModel.registerUser(User("delivery", "tracker"))
+
         logInButton.setOnClickListener {
             if (userNameText.text.isNotEmpty() && passwordText.text.isNotEmpty()) {
                 val user = User(userNameText.text.toString(), passwordText.text.toString())

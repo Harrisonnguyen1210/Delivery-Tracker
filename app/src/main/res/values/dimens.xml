@@ -8,4 +8,8 @@
     <dimen name="login_button_horizontal_padding">64dp</dimen>
     <dimen name="login_text_input_horizontal_padding">32dp</dimen>
     <dimen name="login_text_input_vertical_padding">16dp</dimen>
+    <dimen name="card_view_info_padding">8dp</dimen>
+    <dimen name="card_view_radius">10dp</dimen>
+    <dimen name="card_view_customer_vertical_padding">8dp</dimen>
+    <dimen name="card_view_status_margin_top">8dp</dimen>
 </resources>
