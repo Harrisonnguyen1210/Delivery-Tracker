@@ -1,17 +1,19 @@
 package fi.metropolia.deliverytracker.view
 
 import android.graphics.Color
+import android.location.Geocoder
 import android.os.Bundle
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import fi.metropolia.deliverytracker.R
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.Polyline
@@ -30,6 +32,10 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListene
     private var destinationMarkers = arrayListOf<Marker>()
     private var polylinePaths = arrayListOf<Polyline>()
     private var destination = ""
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationCallback: LocationCallback
+    private lateinit var geoCoder: Geocoder
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +45,15 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListene
         val view = inflater.inflate(R.layout.fragment_google_map, container, false)
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
+        geoCoder = Geocoder(context!!)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(context!!)
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult?) {
+                locationResult ?: return
+                val address = geoCoder.getFromLocation(locationResult.lastLocation.latitude, locationResult.lastLocation.longitude, 1)[0]
+                sendRequest(address.getAddressLine(0))
+            }
+        }
         return view
     }
 
@@ -47,24 +62,27 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListene
         arguments?.let {
             destination = GoogleMapFragmentArgs.fromBundle(it).detination
         }
-        sendRequest()
+         startLocationUpdates()
     }
 
-    private fun sendRequest() {
-        val origin = "Vieraskuja 5, Espoo"
+    private fun startLocationUpdates() {
+        val locationRequest = LocationRequest.create()
+        fusedLocationClient.requestLocationUpdates(locationRequest,
+            locationCallback,
+            Looper.getMainLooper())
+    }
+
+    private fun sendRequest(origin: String) {
+        println("LOLOLOLOLOLOLHAHAHA")
         try {
             DirectionFinder(this, origin, destination).execute()
         } catch (e: UnsupportedEncodingException) {
             e.printStackTrace()
         }
-
     }
 
     override fun onMapReady(p0: GoogleMap?) {
         mMap = p0!!
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
         mMap.isMyLocationEnabled = true
     }
 
