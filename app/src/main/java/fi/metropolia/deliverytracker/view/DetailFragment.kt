@@ -13,6 +13,7 @@ import androidx.navigation.Navigation
 import fi.metropolia.deliverytracker.R
 import fi.metropolia.deliverytracker.databinding.FragmentRequestDetailBinding
 import fi.metropolia.deliverytracker.viewmodel.DetailViewModel
+import kotlinx.android.synthetic.main.fragment_login.view.*
 import kotlinx.android.synthetic.main.fragment_request_detail.*
 
 class DetailFragment : Fragment() {
@@ -40,9 +41,15 @@ class DetailFragment : Fragment() {
         viewModel.fetch(requestId)
         observeViewModel()
         acceptButton.setOnClickListener {
-            val action = DetailFragmentDirections.actionRequestDetailToAcceptOrder()
-            action.requestId = requestId
-            Navigation.findNavController(it).navigate(action)
+            if(acceptButton.text == "Start delivery") {
+                val action = DetailFragmentDirections.actionRequestDetailToGoogleMapFragment()
+                action.detination = dataBinding.request!!.destination
+                Navigation.findNavController(it).navigate(action)
+            } else {
+                val action = DetailFragmentDirections.actionRequestDetailToAcceptOrder()
+                action.requestId = requestId
+                Navigation.findNavController(it).navigate(action)
+            }
         }
     }
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_navigation"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/requestsFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_requestDetail_to_acceptOrder"
             app:destination="@id/acceptOrder" />
+        <action
+            android:id="@+id/action_requestDetail_to_googleMapFragment"
+            app:destination="@id/googleMapFragment" />
     </fragment>
     <fragment
         android:id="@+id/acceptOrder"
@@ -63,5 +66,15 @@
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/googleMapFragment"
+        android:name="fi.metropolia.deliverytracker.view.GoogleMapFragment"
+        android:label="fragment_google_map"
+        tools:layout="@layout/fragment_google_map" >
+        <argument
+            android:name="detination"
+            app:argType="string"
+            android:defaultValue='"Vieraskuja 5, Espoo "' />
     </fragment>
 </navigation>
