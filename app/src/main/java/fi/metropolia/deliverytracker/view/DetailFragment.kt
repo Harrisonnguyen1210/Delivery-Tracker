@@ -6,16 +6,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import fi.metropolia.deliverytracker.R
+import fi.metropolia.deliverytracker.databinding.FragmentRequestDetailBinding
 import fi.metropolia.deliverytracker.viewmodel.DetailViewModel
 import kotlinx.android.synthetic.main.fragment_request_detail.*
 
 class DetailFragment : Fragment() {
 
     private lateinit var viewModel: DetailViewModel
+    private lateinit var dataBinding: FragmentRequestDetailBinding
     private var requestId = 0
 
     override fun onCreateView(
@@ -23,7 +26,8 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_request_detail, container, false)
+        dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_request_detail, container, false)
+        return dataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,13 +49,8 @@ class DetailFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.requestDetail.observe(this, Observer {
             it?.let {
+                dataBinding.request = it
                 if (it.transporterName == "delivery" && it.status == "Accepted") acceptButton.text = "Start delivery"
-                customerText.text = it.customer
-                startingDateText.text = it.startingDate
-                deadlineText.text = it.deadline
-                infoText.text = it.info
-                statusText.text = it.status
-                addressText.text = it.destination
             }
         })
     }

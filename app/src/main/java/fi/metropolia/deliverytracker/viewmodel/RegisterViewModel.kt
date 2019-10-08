@@ -6,21 +6,21 @@ import fi.metropolia.deliverytracker.model.DeliveryTrackDatabase
 import fi.metropolia.deliverytracker.model.User
 import kotlinx.coroutines.launch
 
-class LoginViewModel(application: Application): BaseViewModel(application) {
-    val loginState = MutableLiveData<Boolean>()
+class RegisterViewModel(application: Application): BaseViewModel(application) {
+    val registerState = MutableLiveData<Boolean>()
     val errorState = MutableLiveData<Boolean>()
     private val userDao = DeliveryTrackDatabase(getApplication()).userDao()
 
-    fun loginUser(user: User) {
+    fun registerUser(user: User) {
         launch {
-            val retrievedUser = userDao.loginUser(user.userName, user.password)
-            if(retrievedUser != null) {
+            val result = userDao.insertUser(user)
+            if(result != (-1).toLong()) {
+                registerState.value = true
                 errorState.value = false
-                loginState.value = true
             }
             else {
+                registerState.value = false
                 errorState.value = true
-                loginState.value = false
             }
         }
     }

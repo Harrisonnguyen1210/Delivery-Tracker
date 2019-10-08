@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import fi.metropolia.deliverytracker.R
 import fi.metropolia.deliverytracker.model.User
@@ -32,14 +31,14 @@ class LoginFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
 
-//        //Uncomment this when first installing the app
-//        viewModel.registerUser(User("delivery", "tracker"))
-
         logInButton.setOnClickListener {
             if (userNameText.text.isNotEmpty() && passwordText.text.isNotEmpty()) {
                 val user = User(userNameText.text.toString(), passwordText.text.toString())
                 viewModel.loginUser(user)
             }
+        }
+        registerAction.setOnClickListener {
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
         }
         observeViewModel()
     }

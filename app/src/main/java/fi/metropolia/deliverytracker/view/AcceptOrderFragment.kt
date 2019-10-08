@@ -51,5 +51,4 @@ class AcceptOrderFragment : Fragment(), CoroutineScope {
             Navigation.findNavController(it).navigateUp()
         }
     }
-
 }
