@@ -73,7 +73,6 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListene
     }
 
     private fun sendRequest(origin: String) {
-        println("LOLOLOLOLOLOLHAHAHA")
         try {
             DirectionFinder(this, origin, destination).execute()
         } catch (e: UnsupportedEncodingException) {

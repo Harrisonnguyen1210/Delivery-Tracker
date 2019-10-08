@@ -16,4 +16,17 @@
     <string name="invalid_login">Wrong username or password</string>
     <string name="deliver_by">Deliver by</string>
     <string name="status">Status: </string>
+    <string name="need_account">Need an account?</string>
+    <string name="register_login">Register</string>
+    <string name="login_to_register"><u>Register</u></string>
+    <string name="register_user_existed">Already register username. Choose another one</string>
+    <string name="register_already_have_account">Already have an account?</string>
+    <string name="register_to_login"><u>Login</u></string>
+    <string name="action_register">Register</string>
+    <string name="delivery_details_title">Delivery details</string>
+    <string name="action_accept">Accept</string>
+    <string name="publish_date">Published date</string>
+    <string name="address">Address</string>
+    <string name="delivery_note">Note</string>
+    <string name="delivery_status">Status</string>
 </resources>
