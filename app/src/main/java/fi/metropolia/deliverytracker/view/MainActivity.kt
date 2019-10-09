@@ -7,12 +7,17 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import fi.metropolia.deliverytracker.R
 import fi.metropolia.deliverytracker.model.DeliveryTrackDatabase
 
 class MainActivity : AppCompatActivity() {
 
     private val MY_PERMISSIONS_REQUEST_LOCATION = 99
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //Reset theme after splash screen
@@ -20,8 +25,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         checkLocationPermission()
         setContentView(R.layout.activity_main)
+        navController = Navigation.findNavController(this, R.id.fragment)
     }
 
+    //Close app database when app closes
     override fun onDestroy() {
         super.onDestroy()
         DeliveryTrackDatabase(applicationContext).close()
@@ -54,5 +61,9 @@ class MainActivity : AppCompatActivity() {
         } else {
             return true
         }
+    }
+
+    override fun onBackPressed() {
+        NavigationUI.navigateUp(navController, null)
     }
 }

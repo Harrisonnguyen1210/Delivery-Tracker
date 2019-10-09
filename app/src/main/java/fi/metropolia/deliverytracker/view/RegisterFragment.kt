@@ -9,11 +9,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-
 import fi.metropolia.deliverytracker.R
 import fi.metropolia.deliverytracker.model.User
 import fi.metropolia.deliverytracker.viewmodel.RegisterViewModel
-import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_register.*
 
 class RegisterFragment : Fragment() {

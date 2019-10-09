@@ -63,6 +63,9 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListene
             destination = GoogleMapFragmentArgs.fromBundle(it).detination
         }
          startLocationUpdates()
+        finishButton.setOnClickListener {
+
+        }
     }
 
     private fun startLocationUpdates() {

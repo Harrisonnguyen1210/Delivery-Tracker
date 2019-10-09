@@ -7,6 +7,12 @@
         <variable
             name="request"
             type="fi.metropolia.deliverytracker.model.Request" />
+        <variable
+            name="startDeliverState"
+            type="String" />
+        <variable
+            name="acceptButtonState"
+            type="Boolean" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -173,7 +179,8 @@
             android:background="@color/colorPrimary"
             android:paddingStart="@dimen/button_horizontal_padding"
             android:paddingEnd="@dimen/button_horizontal_padding"
-            android:text="@string/action_accept"
+            android:enabled="@{acceptButtonState}"
+            android:text="@{startDeliverState}"
             android:textColor="@color/colorWhite"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

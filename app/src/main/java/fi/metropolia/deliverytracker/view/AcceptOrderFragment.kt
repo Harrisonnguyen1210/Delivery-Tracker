@@ -10,6 +10,7 @@ import androidx.navigation.Navigation
 import fi.metropolia.deliverytracker.R
 import fi.metropolia.deliverytracker.model.DeliveryTrackDatabase
 import fi.metropolia.deliverytracker.model.RequestDao
+import fi.metropolia.deliverytracker.util.SharedPreferencesHelper
 import kotlinx.android.synthetic.main.fragment_accept_order.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,6 +37,7 @@ class AcceptOrderFragment : Fragment(), CoroutineScope {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val prefHelper = SharedPreferencesHelper(context!!)
         requestDao = DeliveryTrackDatabase(context!!).requestDao()
         arguments?.let {
             requestId = AcceptOrderFragmentArgs.fromBundle(it).requestId
@@ -43,7 +45,7 @@ class AcceptOrderFragment : Fragment(), CoroutineScope {
 
         acceptButton.setOnClickListener {
             launch {
-                requestDao.acceptRequest("Accepted", "delivery", requestId)
+                requestDao.acceptRequest("Accepted", prefHelper.getUsername()!!, requestId)
                 Navigation.findNavController(it).navigateUp()
             }
         }

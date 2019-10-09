@@ -57,7 +57,25 @@ class DetailFragment : Fragment() {
         viewModel.requestDetail.observe(this, Observer {
             it?.let {
                 dataBinding.request = it
-                if (it.transporterName == "delivery" && it.status == "Accepted") acceptButton.text = "Start delivery"
+            }
+        })
+
+        viewModel.startDeliveryState.observe(this, Observer {
+            it?.let {
+                when (it) {
+                    0 -> {
+                        dataBinding.startDeliverState = "Accept"
+                        dataBinding.acceptButtonState = true
+                    }
+                    1 -> {
+                        dataBinding.startDeliverState = "Start delivery"
+                        dataBinding.acceptButtonState = true
+                    }
+                    else -> {
+                        dataBinding.startDeliverState = "Already delivered"
+                        dataBinding.acceptButtonState = false
+                    }
+                }
             }
         })
     }
