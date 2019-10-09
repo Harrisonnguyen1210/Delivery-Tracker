@@ -21,4 +21,7 @@ interface RequestDao {
 
     @Query("UPDATE Request SET transporterName = :transporterName, status = :status WHERE id = :requestId")
     suspend fun acceptRequest(status: String, transporterName: String, requestId: Int)
+
+    @Query("UPDATE Request SET status = :status WHERE id = :requestId")
+    suspend fun finishRequest(status: String, requestId: Int)
 }

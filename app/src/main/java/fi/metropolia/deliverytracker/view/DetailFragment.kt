@@ -44,6 +44,8 @@ class DetailFragment : Fragment() {
             if(acceptButton.text == "Start delivery") {
                 val action = DetailFragmentDirections.actionRequestDetailToGoogleMapFragment()
                 action.detination = dataBinding.request!!.destination
+                action.requestId = requestId
+                action.info = dataBinding.request!!.info
                 Navigation.findNavController(it).navigate(action)
             } else {
                 val action = DetailFragmentDirections.actionRequestDetailToAcceptOrder()
@@ -71,8 +73,12 @@ class DetailFragment : Fragment() {
                         dataBinding.startDeliverState = "Start delivery"
                         dataBinding.acceptButtonState = true
                     }
-                    else -> {
+                    2 -> {
                         dataBinding.startDeliverState = "Already delivered"
+                        dataBinding.acceptButtonState = false
+                    }
+                    3 -> {
+                        dataBinding.startDeliverState = "Finished"
                         dataBinding.acceptButtonState = false
                     }
                 }

@@ -29,7 +29,6 @@ class SharedPreferencesHelper {
     fun saveUsername(username: String) {
         prefs?.edit(commit = true) {
             putString(USER_NAME, username)
-            println("SAVEEEE $username")
         }
     }
 

@@ -16,14 +16,18 @@ class DetailViewModel(application: Application) : BaseViewModel(application) {
         launch {
             val request = DeliveryTrackDatabase(getApplication()).requestDao().getRequest(requestId)
             requestDetail.value = request
-            when {
-                //No transporter accepted yet
-                request.transporterName == null -> startDeliveryState.value = 0
-                //User has accepted the request
-                request.transporterName == prefHelper.getUsername() -> startDeliveryState.value = 1
-                //Somebody has accepted request
-                else -> startDeliveryState.value = 2
+            if(request.status == "Finished") startDeliveryState.value = 3
+            else {
+                when {
+                    //No transporter accepted yet
+                    request.transporterName == null -> startDeliveryState.value = 0
+                    //User has accepted the request
+                    request.transporterName == prefHelper.getUsername() -> startDeliveryState.value = 1
+                    //Somebody has accepted request
+                    else -> startDeliveryState.value = 2
+                }
             }
+
         }
     }
 }

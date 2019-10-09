@@ -61,6 +61,8 @@ class RequestViewModel(application: Application) : BaseViewModel(application) {
     }
 
     private fun requestsRetrieved(requestsList: List<Request>) {
+        println("LOLOLOLOLO")
+        println(requestsList)
         requests.value = requestsList
         requestsLoadError.value = false
         loading.value = false

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -20,13 +21,21 @@ import com.google.android.gms.maps.model.Polyline
 import fi.metropolia.deliverytracker.model.Route
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import fi.metropolia.deliverytracker.model.DeliveryTrackDatabase
 import kotlinx.android.synthetic.main.fragment_google_map.*
 import fi.metropolia.deliverytracker.util.DirectionFinder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.io.UnsupportedEncodingException
+import kotlin.coroutines.CoroutineContext
 
 
-class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListener {
-
+class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListener, CoroutineScope {
+    private val job = Job()
+    override val coroutineContext: CoroutineContext
+        get() = job + Dispatchers.Main
     private lateinit var mMap: GoogleMap
     private var originMarkers = arrayListOf<Marker>()
     private var destinationMarkers = arrayListOf<Marker>()
@@ -35,7 +44,7 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListene
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
     private lateinit var geoCoder: Geocoder
-
+    private var requestId = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,10 +70,16 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListene
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
             destination = GoogleMapFragmentArgs.fromBundle(it).detination
+            requestId = GoogleMapFragmentArgs.fromBundle(it).requestId
+            infoText.text = GoogleMapFragmentArgs.fromBundle(it).info
+            addressText.text = destination
         }
-         startLocationUpdates()
+        startLocationUpdates()
         finishButton.setOnClickListener {
-
+            launch {
+                DeliveryTrackDatabase(context!!).requestDao().finishRequest("Finished", requestId)
+                findNavController().navigate(GoogleMapFragmentDirections.actionGoogleMapFragmentToRequestDetail())
+            }
         }
     }
 
