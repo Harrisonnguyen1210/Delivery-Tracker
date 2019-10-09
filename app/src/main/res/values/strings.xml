@@ -26,4 +26,8 @@
     <string name="address">Address</string>
     <string name="delivery_note">Note</string>
     <string name="delivery_status">Status</string>
+    <string name="home_title">Delivery requests</string>
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm_accept_delivery">Accept this delivery request?</string>
 </resources>

@@ -6,6 +6,7 @@
     <dimen name="logo_horizontal_margin">64dp</dimen>
     <dimen name="login_helper_text_top_margin">8dp</dimen>
     <dimen name="button_horizontal_padding">64dp</dimen>
+    <dimen name="button_horizontal_padding_small">48dp</dimen>
     <dimen name="login_text_input_horizontal_padding">32dp</dimen>
     <dimen name="login_text_input_vertical_padding">16dp</dimen>
     <dimen name="card_view_info_padding">8dp</dimen>
