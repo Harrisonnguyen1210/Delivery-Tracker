@@ -30,4 +30,8 @@
     <string name="accept">Accept</string>
     <string name="cancel">Cancel</string>
     <string name="confirm_accept_delivery">Accept this delivery request?</string>
+    <string name="current_delivery">Current delivery</string>
+    <string name="distance_to_dest">Distance to destination</string>
+    <string name="duration">Duration</string>
+    <string name="finish">Finish</string>
 </resources>
