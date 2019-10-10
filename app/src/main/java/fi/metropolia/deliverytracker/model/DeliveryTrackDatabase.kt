@@ -17,11 +17,13 @@ abstract class DeliveryTrackDatabase: RoomDatabase() {
         @Volatile private var instance: DeliveryTrackDatabase? = null
         private val LOCK = Any()
 
-        //Whenever the RequestDatabase singleton is invoked with the context, we will get an instance if it is already created, or we will synchronize
+        //Whenever the RequestDatabase singleton is invoked with the context,
+        // we will get an instance if it is already created, or we will synchronize
         // to allow one thread to access this block below at a time
-        operator fun invoke(context: Context) = instance ?: synchronized(LOCK) { // if instance is null -> synchronized is returned, else returns instance
-            //Either return the instance or build the database, assign it to instance and return it
+        operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
+        // if instance is null -> synchronized is returned, else returns instance
             instance ?: buildDatabase(context).also {
+                //Either return the instance or build the database, assign it to instance and return it
                 instance = it
             }
         }
