@@ -29,7 +29,7 @@ class FinishFragment : Fragment() {
 
         arguments?.let {
             requestId = FinishFragmentArgs.fromBundle(it).requestId
-            stepText.text = FinishFragmentArgs.fromBundle(it).steps.toString()
+            stepText.text = getString(R.string.step_count_fact, FinishFragmentArgs.fromBundle(it).steps)
         }
 
         doneButton.setOnClickListener {

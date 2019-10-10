@@ -34,4 +34,7 @@
     <string name="distance_to_dest">Distance to destination</string>
     <string name="duration">Duration</string>
     <string name="finish">Finish</string>
+    <string name="delivery_finished">You have finished this delivery.\nWell done!</string>
+    <string name="step_count_fact">Fun fact:\nYou walked %1$d steps during this delivery!</string>
+    <string name="done">Done</string>
 </resources>

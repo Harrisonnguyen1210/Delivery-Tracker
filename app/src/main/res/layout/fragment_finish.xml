@@ -21,37 +21,41 @@
         android:id="@+id/finishLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Delivery Finished"
+        android:layout_marginTop="@dimen/logo_vertical_margin"
+        android:text="@string/delivery_finished"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoImage" />
 
     <TextView
-        android:id="@+id/stepLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="128dp"
-        android:text="Steps: "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/finishLabel" />
-
-    <TextView
         android:id="@+id/stepText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
-        app:layout_constraintBaseline_toBaselineOf="@+id/stepLabel"
+        android:layout_marginTop="@dimen/logo_vertical_margin"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/finishLabel" />
 
     <Button
         android:id="@+id/doneButton"
-        android:layout_width="79dp"
-        android:layout_height="36dp"
-        android:layout_marginBottom="63dp"
-        android:text="Done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/logo_vertical_margin"
+        android:background="@color/colorPrimary"
+        android:paddingLeft="@dimen/button_horizontal_padding"
+        android:paddingRight="@dimen/button_horizontal_padding"
+        android:text="@string/done"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
