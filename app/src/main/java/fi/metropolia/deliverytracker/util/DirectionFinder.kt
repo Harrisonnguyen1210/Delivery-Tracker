@@ -16,25 +16,29 @@ import java.net.MalformedURLException
 import java.net.URL
 import java.net.URLEncoder
 
-
+/**
+ * Direction finder class to make a request to Google Map Api based on addresses of origin and destination
+ */
 class DirectionFinder(internal val listener: DirectionFinderListener, private val origin: String, private val destination: String) {
     private val DIRECTION_URL_API = "https://maps.googleapis.com/maps/api/directions/json?"
     private val GOOGLE_API_KEY = "AIzaSyA3dPLT5lFjTHoK26gjor6DquLwKFyJlnI"
 
+    //Execute async task
     @Throws(UnsupportedEncodingException::class)
     fun execute() {
         listener.onDirectionFinderStart()
         DownloadRawData().execute(createUrl())
     }
 
+    //Create url for making api get request
     @Throws(UnsupportedEncodingException::class)
     private fun createUrl(): String {
         val urlOrigin = URLEncoder.encode(origin, "utf-8")
         val urlDestination = URLEncoder.encode(destination, "utf-8")
-
         return DIRECTION_URL_API + "origin=" + urlOrigin + "&destination=" + urlDestination + "&key=" + GOOGLE_API_KEY
     }
 
+    //Inner class to execute asyntask
     inner class DownloadRawData: AsyncTask<String, Unit, String>() {
         override fun doInBackground(vararg params: String?): String {
             val link = params[0]
@@ -95,12 +99,12 @@ class DirectionFinder(internal val listener: DirectionFinderListener, private va
                 route.endLocation =
                     LatLng(jsonEndLocation.getDouble("lat"), jsonEndLocation.getDouble("lng"))
                 route.points = decodePolyLine(overviewPolylineJson.getString("points"))
-
                 routes.add(route)
             }
             listener.onDirectionFinderSuccess(routes)
         }
 
+        //Decode polyline compressed polyline field return from google direction api
         private fun decodePolyLine(poly: String): List<LatLng> {
             val len = poly.length
             var index = 0
@@ -139,5 +143,4 @@ class DirectionFinder(internal val listener: DirectionFinderListener, private va
             return decoded
         }
     }
-
 }

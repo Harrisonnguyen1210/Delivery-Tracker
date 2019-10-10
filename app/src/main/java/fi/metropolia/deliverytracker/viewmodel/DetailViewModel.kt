@@ -7,15 +7,20 @@ import fi.metropolia.deliverytracker.model.Request
 import fi.metropolia.deliverytracker.util.SharedPreferencesHelper
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel for detail screen
+ */
 class DetailViewModel(application: Application) : BaseViewModel(application) {
     val requestDetail = MutableLiveData<Request>()
     val startDeliveryState = MutableLiveData<Int>()
     private var prefHelper = SharedPreferencesHelper(getApplication())
 
+    //Fetch request detail based on request Id
     fun fetch(requestId: Int) {
         launch {
             val request = DeliveryTrackDatabase(getApplication()).requestDao().getRequest(requestId)
             requestDetail.value = request
+            //Checking status of the request
             if(request.status == "Finished") startDeliveryState.value = 3
             else {
                 when {

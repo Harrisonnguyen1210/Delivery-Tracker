@@ -16,6 +16,9 @@ import fi.metropolia.deliverytracker.viewmodel.DetailViewModel
 import kotlinx.android.synthetic.main.fragment_login.view.*
 import kotlinx.android.synthetic.main.fragment_request_detail.*
 
+/**
+ * Fragment displays request's details
+ */
 class DetailFragment : Fragment() {
 
     private lateinit var viewModel: DetailViewModel
@@ -41,13 +44,14 @@ class DetailFragment : Fragment() {
         viewModel.fetch(requestId)
         observeViewModel()
         acceptButton.setOnClickListener {
+            //If user has accepted the request -> navigate to google map screen
             if(acceptButton.text == "Start delivery") {
                 val action = DetailFragmentDirections.actionRequestDetailToGoogleMapFragment()
                 action.detination = dataBinding.request!!.destination
                 action.requestId = requestId
                 action.info = dataBinding.request!!.info
                 Navigation.findNavController(it).navigate(action)
-            } else {
+            } else { //else navigate to accept order screen
                 val action = DetailFragmentDirections.actionRequestDetailToAcceptOrder()
                 action.requestId = requestId
                 Navigation.findNavController(it).navigate(action)
@@ -64,6 +68,7 @@ class DetailFragment : Fragment() {
 
         viewModel.startDeliveryState.observe(this, Observer {
             it?.let {
+                //Checking condition of accept button
                 when (it) {
                     0 -> {
                         dataBinding.startDeliverState = "Accept"

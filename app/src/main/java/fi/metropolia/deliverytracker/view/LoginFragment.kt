@@ -14,6 +14,9 @@ import fi.metropolia.deliverytracker.model.User
 import fi.metropolia.deliverytracker.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
 
+/**
+ * Fragment screen for login user
+ */
 class LoginFragment : Fragment() {
 
     private lateinit var viewModel: LoginViewModel

@@ -14,6 +14,9 @@ import androidx.navigation.ui.NavigationUI
 import fi.metropolia.deliverytracker.R
 import fi.metropolia.deliverytracker.model.DeliveryTrackDatabase
 
+/**
+ * Main and single activity for whole app
+ */
 class MainActivity : AppCompatActivity() {
 
     private val MY_PERMISSIONS_REQUEST_LOCATION = 99

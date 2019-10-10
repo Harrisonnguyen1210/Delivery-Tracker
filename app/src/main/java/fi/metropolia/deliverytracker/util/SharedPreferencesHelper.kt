@@ -5,6 +5,9 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import androidx.core.content.edit
 
+/**
+ * Helper class to save and get username from SharePreferences
+ */
 class SharedPreferencesHelper {
 
     companion object {

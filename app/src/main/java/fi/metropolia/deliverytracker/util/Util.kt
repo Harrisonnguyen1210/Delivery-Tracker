@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import fi.metropolia.deliverytracker.R
 
-
+//Get loading circle for image
 fun getProgressDrawable(context: Context): CircularProgressDrawable {
     return CircularProgressDrawable(context).apply {
         strokeWidth = 10f
@@ -17,6 +17,7 @@ fun getProgressDrawable(context: Context): CircularProgressDrawable {
     }
 }
 
+//Load image with Glide library and have loading effect for image
 fun ImageView.loadImage(uri: String?, progressDrawable: CircularProgressDrawable) {
     val options = RequestOptions()
         .placeholder(progressDrawable)
@@ -27,6 +28,7 @@ fun ImageView.loadImage(uri: String?, progressDrawable: CircularProgressDrawable
         .into(this)
 }
 
+//Set extended attribute for ImageView
 @BindingAdapter("android:imageUrl")
 fun loadImage(view: ImageView, url: String?) {
     view.loadImage(url, getProgressDrawable(view.context))

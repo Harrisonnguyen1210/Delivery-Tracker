@@ -3,8 +3,10 @@ package fi.metropolia.deliverytracker.model
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Update
 
+/**
+ * Dao interface to access Request database
+ */
 @Dao
 interface RequestDao {
     @Insert

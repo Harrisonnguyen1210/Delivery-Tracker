@@ -14,6 +14,9 @@ import fi.metropolia.deliverytracker.model.User
 import fi.metropolia.deliverytracker.viewmodel.RegisterViewModel
 import kotlinx.android.synthetic.main.fragment_register.*
 
+/**
+ * Fragment screen for register user
+ */
 class RegisterFragment : Fragment() {
 
     private lateinit var viewModel: RegisterViewModel

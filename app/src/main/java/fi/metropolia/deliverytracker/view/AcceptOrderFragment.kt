@@ -18,6 +18,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
+/**
+ * Fragment for accept or cancel order
+ */
 class AcceptOrderFragment : Fragment(), CoroutineScope {
 
     private val job = Job()

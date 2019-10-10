@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.Navigation
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -31,7 +31,9 @@ import kotlinx.coroutines.launch
 import java.io.UnsupportedEncodingException
 import kotlin.coroutines.CoroutineContext
 
-
+/**
+ * Fragment screen to show Google map, including direction, estimated time, destination address...
+ */
 class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListener, CoroutineScope {
     private val job = Job()
     override val coroutineContext: CoroutineContext
@@ -56,9 +58,11 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListene
         mapFragment?.getMapAsync(this)
         geoCoder = Geocoder(context!!)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context!!)
+        //Call back when current location is retrieved
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
                 locationResult ?: return
+                //Encode current address from coordinates to text address
                 val address = geoCoder.getFromLocation(locationResult.lastLocation.latitude, locationResult.lastLocation.longitude, 1)[0]
                 sendRequest(address.getAddressLine(0))
             }
@@ -78,11 +82,14 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListene
         finishButton.setOnClickListener {
             launch {
                 DeliveryTrackDatabase(context!!).requestDao().finishRequest("Finished", requestId)
-                findNavController().navigate(GoogleMapFragmentDirections.actionGoogleMapFragmentToRequestDetail())
+                val action = GoogleMapFragmentDirections.actionGoogleMapFragmentToRequestDetail()
+                action.requestId = requestId
+                Navigation.findNavController(it).navigate(action)
             }
         }
     }
 
+    //Update current location
     private fun startLocationUpdates() {
         val locationRequest = LocationRequest.create()
         fusedLocationClient.requestLocationUpdates(locationRequest,
@@ -90,6 +97,7 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListene
             Looper.getMainLooper())
     }
 
+    //Start direction finder
     private fun sendRequest(origin: String) {
         try {
             DirectionFinder(this, origin, destination).execute()

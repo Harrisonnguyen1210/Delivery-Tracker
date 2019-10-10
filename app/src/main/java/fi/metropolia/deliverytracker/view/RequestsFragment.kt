@@ -13,6 +13,9 @@ import fi.metropolia.deliverytracker.R
 import fi.metropolia.deliverytracker.viewmodel.RequestViewModel
 import kotlinx.android.synthetic.main.fragment_requests.*
 
+/**
+ * Fragment for showing request items
+ */
 class RequestsFragment : Fragment() {
 
     private val requestAdapter = RequestListAdapter(arrayListOf())

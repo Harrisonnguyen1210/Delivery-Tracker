@@ -10,6 +10,9 @@ import fi.metropolia.deliverytracker.R
 import fi.metropolia.deliverytracker.databinding.RequestItemBinding
 import fi.metropolia.deliverytracker.model.Request
 
+/**
+ * Request list adapter for requests recycler view, applying dataBinding
+ */
 class RequestListAdapter(private val requestList: ArrayList<Request>):
     RecyclerView.Adapter<RequestListAdapter.RequestViewHolder>(), RequestClickListener{
 
@@ -35,6 +38,7 @@ class RequestListAdapter(private val requestList: ArrayList<Request>):
         holder.view.listener = this
     }
 
+    //Click listener for request item
     override fun onRequestClick(requestId: Int, v: View) {
         val action = RequestsFragmentDirections.actionRequestsFragmentToRequestDetail()
         action.requestId = requestId

@@ -4,6 +4,9 @@ import androidx.room.*
 import com.google.gson.annotations.SerializedName
 import com.google.android.gms.maps.model.LatLng
 
+/**
+ * Request entity represents delivery requests
+ */
 @Entity
 data class Request(
     @PrimaryKey
@@ -26,6 +29,9 @@ data class Request(
     val transporterName: String?
 )
 
+/**
+ * User entity represents app's users
+ */
 @Entity
 data class User(
     @PrimaryKey
@@ -41,6 +47,9 @@ class UserWithRequests(
     val requestList: List<Request>
 )
 
+/**
+ * Route object represents google direction map
+ */
 class Route {
     var distance: Distance? = null
     var duration: Duration? = null
@@ -52,6 +61,12 @@ class Route {
     var points: List<LatLng>? = null
 }
 
+/**
+ * Estimated time to travel from starting point to destination point
+ */
 class Duration(var text: String, var value: Int)
 
+/**
+ * Distance between starting point and destination point
+ */
 class Distance(var text: String, var value: Int)

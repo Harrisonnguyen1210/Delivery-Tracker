@@ -12,6 +12,9 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel for requests screen
+ */
 class RequestViewModel(application: Application) : BaseViewModel(application) {
     private val requestsApiService = RequestsApiService()
     private val requestDao = DeliveryTrackDatabase(getApplication()).requestDao()
@@ -20,6 +23,7 @@ class RequestViewModel(application: Application) : BaseViewModel(application) {
     val requests = MutableLiveData<List<Request>>()
     val requestsLoadError = MutableLiveData<Boolean>()
 
+    //Fetch data from API if database is empty, else fetch from database
     fun refresh() {
         launch {
             val initialData = requestDao.getAllRequests()
@@ -30,6 +34,7 @@ class RequestViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
+    //Fetch data from API
     private fun fetchFromRemote() {
         loading.value = true
         disposable.add(
@@ -53,6 +58,7 @@ class RequestViewModel(application: Application) : BaseViewModel(application) {
         )
     }
 
+    //Fetch data from local database
     private fun fetchFromDatabase() {
         loading.value = true
         launch {
@@ -60,14 +66,14 @@ class RequestViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
+    //Update LiveData
     private fun requestsRetrieved(requestsList: List<Request>) {
-        println("LOLOLOLOLO")
-        println(requestsList)
         requests.value = requestsList
         requestsLoadError.value = false
         loading.value = false
     }
 
+    //Insert list of requests into database
     private fun storeRequestsLocally(requestList: List<Request>) {
         launch {
             requestDao.deleteAllRequests()
