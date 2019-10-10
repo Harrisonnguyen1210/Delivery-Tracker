@@ -1,6 +1,11 @@
 package fi.metropolia.deliverytracker.view
 
+import android.content.Context
 import android.graphics.Color
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.location.Geocoder
 import android.os.Bundle
 import android.os.Looper
@@ -34,18 +39,20 @@ import kotlin.coroutines.CoroutineContext
 /**
  * Fragment screen to show Google map, including direction, estimated time, destination address...
  */
-class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListener, CoroutineScope {
+class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListener, CoroutineScope, SensorEventListener {
     private val job = Job()
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
     private lateinit var mMap: GoogleMap
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationCallback: LocationCallback
+    private lateinit var geoCoder: Geocoder
+    private lateinit var mSensorManager: SensorManager
+    private var stepSensor: Sensor? = null
     private var originMarkers = arrayListOf<Marker>()
     private var destinationMarkers = arrayListOf<Marker>()
     private var polylinePaths = arrayListOf<Polyline>()
     private var destination = ""
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var locationCallback: LocationCallback
-    private lateinit var geoCoder: Geocoder
     private var requestId = 0
 
     override fun onCreateView(
@@ -67,6 +74,8 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListene
                 sendRequest(address.getAddressLine(0))
             }
         }
+        mSensorManager = activity!!.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        stepSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
         return view
     }
 
@@ -81,11 +90,31 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListene
         startLocationUpdates()
         finishButton.setOnClickListener {
             launch {
+                //Update request status to finished
                 DeliveryTrackDatabase(context!!).requestDao().finishRequest("Finished", requestId)
+                //Navigate back to detail screen with updated status
                 val action = GoogleMapFragmentDirections.actionGoogleMapFragmentToRequestDetail()
                 action.requestId = requestId
                 Navigation.findNavController(it).navigate(action)
             }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        //unregister the sensor onPause else it will be active even if the activity is closed
+        mSensorManager.unregisterListener(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //Register the sensor on resume of the activity
+        stepSensor?.also {
+            mSensorManager.registerListener(
+                this,
+                stepSensor,
+                SensorManager.SENSOR_DELAY_NORMAL
+            )
         }
     }
 
@@ -164,6 +193,19 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListene
                 polylineOptions.add(route.points!![i])
 
             polylinePaths.add(mMap.addPolyline(polylineOptions))
+        }
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+        println("I get ${event?.values} from ${event?.sensor}")
+
+        if(event?.sensor == stepSensor) {
+            println("LOLOLOL")
+            println(event?.values?.get(0))
+            stepsText.text = "${event?.values?.get(0)}"
         }
     }
 }
