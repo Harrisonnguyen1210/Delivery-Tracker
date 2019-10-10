@@ -19,6 +19,6 @@ Delivery app for logistics employees. Providing a useful tool for managing deliv
 Make sure you grant the app permissions to use Network and Location services.
 
 ## Contributors :handshake:
-![Hung Nguyen](https://github.com/Harrisonnguyen1210)
+[Hung Nguyen](https://github.com/Harrisonnguyen1210)
 
-![Nguyen Tran](https://github.com/nguyenkevtran)
+[Nguyen Tran](https://github.com/nguyenkevtran)
