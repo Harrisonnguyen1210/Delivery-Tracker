@@ -54,6 +54,7 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListene
     private var polylinePaths = arrayListOf<Polyline>()
     private var destination = ""
     private var requestId = 0
+    private var steps = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,9 +93,9 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListene
             launch {
                 //Update request status to finished
                 DeliveryTrackDatabase(context!!).requestDao().finishRequest("Finished", requestId)
-                //Navigate back to detail screen with updated status
-                val action = GoogleMapFragmentDirections.actionGoogleMapFragmentToRequestDetail()
+                val action = GoogleMapFragmentDirections.actionGoogleMapFragmentToFinishFragment()
                 action.requestId = requestId
+                action.steps = steps
                 Navigation.findNavController(it).navigate(action)
             }
         }
@@ -200,12 +201,9 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback, DirectionFinderListene
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
-        println("I get ${event?.values} from ${event?.sensor}")
 
         if(event?.sensor == stepSensor) {
-            println("LOLOLOL")
-            println(event?.values?.get(0))
-            stepsText.text = "${event?.values?.get(0)}"
+            steps = event?.values?.get(0)!!.toInt()
         }
     }
 }
