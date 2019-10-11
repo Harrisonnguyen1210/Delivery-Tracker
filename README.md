@@ -16,7 +16,12 @@ Delivery app for logistics employees. Providing a useful tool for managing deliv
 * __Navigation Component__ for navigation ¯\_(ツ)_/¯
 
 ## *** Note ***
-Make sure you grant the app permissions to use Network and Location services.
+Setup before running app:
+* In gradle.properties file, replace your google map API key
+```
+MY_API_KEY="REPLACE YOUR API KEY HERE"
+```
+* Make sure you grant the app permissions to use Network and Location services.
 
 ## Contributors :handshake:
 [Hung Nguyen](https://github.com/Harrisonnguyen1210)

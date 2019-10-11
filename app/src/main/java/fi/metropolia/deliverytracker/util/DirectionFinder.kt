@@ -3,6 +3,7 @@ package fi.metropolia.deliverytracker.util
 import android.os.AsyncTask
 import fi.metropolia.deliverytracker.view.DirectionFinderListener
 import com.google.android.gms.maps.model.LatLng
+import fi.metropolia.deliverytracker.BuildConfig
 import fi.metropolia.deliverytracker.model.Distance
 import fi.metropolia.deliverytracker.model.Duration
 import fi.metropolia.deliverytracker.model.Route
@@ -21,7 +22,7 @@ import java.net.URLEncoder
  */
 class DirectionFinder(internal val listener: DirectionFinderListener, private val origin: String, private val destination: String) {
     private val DIRECTION_URL_API = "https://maps.googleapis.com/maps/api/directions/json?"
-    private val GOOGLE_API_KEY = "AIzaSyA3dPLT5lFjTHoK26gjor6DquLwKFyJlnI"
+    private val GOOGLE_API_KEY = BuildConfig.API_KEY
 
     //Execute async task
     @Throws(UnsupportedEncodingException::class)

@@ -24,6 +24,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "API_KEY", MY_API_KEY)
+            resValue("string", "API_KEY", MY_API_KEY)
+        }
+        debug {
+            signingConfig signingConfigs.debug
+            buildConfigField("String", "API_KEY", MY_API_KEY)
+            resValue("string", "API_KEY", MY_API_KEY)
         }
     }
     dataBinding.enabled = true
@@ -70,7 +77,6 @@ dependencies {
     //Google Map
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
-
 
     testImplementation 'junit:junit:4.12'
 
